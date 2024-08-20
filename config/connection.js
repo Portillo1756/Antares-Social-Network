@@ -1,14 +1,3 @@
-const Sequelize = require('sequelize');
-require('dotenv').config();
-
-const sequelize = new Sequelize(
-    process.env.Madrid_db, 
-    process.env.Madrid_user,
-    process.env.Madrid_password,
-    {
-        host: 'localhost',
-        dialect: 'postgres'
-    }
-)
-
-module.exports = sequelize;
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/socialNetwordDB');
+moodule

@@ -1,11 +1,17 @@
 const express = require('express');
-const sequelize = require('./config/connection');
+const routes = require('./routes');
+const db = require('./config/connection');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+//needdd these two lines of code for anything with a post request
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-sequelize.sync().then(() => {
+app.use(routes);
+
+db.once("open").then(() => {
     app.listen(PORT, () => {
-        console.log('server started!');
+        console.log(`server started on ${PORT}`);
     })
 });
