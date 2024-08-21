@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use(routes);
 
-db.once("open").then(() => {
+db.once("open", () => {
     app.listen(PORT, () => {
         console.log(`server started on ${PORT}`);
     })
