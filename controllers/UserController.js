@@ -46,6 +46,25 @@ module.exports = {
         }
     },
 
+    // uptate a user
+    async updateUser(req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $set: req.body },
+                { runValidators: true, new: true }
+            );
+            
+            if (!user) {
+                return res.status(404).json({ message: 'No user exists!' });
+            }
+
+            res.json({ message: 'User successfuly update.)' }) ;
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
     // Delete a User
     async deleteUser(req, res) {
         try {
@@ -73,43 +92,39 @@ module.exports = {
         }
     },
 
-    // add an thought to a user
-    async addThought(req, res) {
+    // A fiend to user
+    async addFriend (req, res) {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
-                { $addToSet: { thought: req.body }},
+                { $addToSet: {friends: req.params.friendId }},
                 { runValidators: true, new: true }
             );
-
-            if (!student) {
-                return res
-                    .status(404)
-                    .json({ message: 'No user found with that ID :( '});
+            
+            if (!user) {
+                return res.status(404).json({ message: 'No friend exists!' });
             }
 
-            res.json(user);
-            }catch (err) {
+            res.json({ message: 'Friend successfuly added!)' }) ;
+        } catch (err) {
             res.status(500).json(err);
         }
     },
-    
-    // remove thought from a user
-    async removeThought(req, res) {
+
+    // Delete a friend to user
+    async removeFriend(req, res) {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
-                { $pull: { thought: { thoughtId: req.params.thoughtId } } },
+                { $pull: {friend: req.params.friendId }},
                 { runValidators: true, new: true }
             );
-
+            
             if (!user) {
-                return res
-                    .status(404)
-                    .json({ message: 'No user found with that ID :(' });
+                return res.status(404).json({ message: 'No friend exists!' });
             }
 
-            res.json(student);
+            res.json({ message: 'Friend successfuly remove.)' }) ;
         } catch (err) {
             res.status(500).json(err);
         }

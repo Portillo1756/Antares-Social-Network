@@ -2,6 +2,8 @@ const express = require('express');
 const routes = require('./routes');
 const db = require('./config/connection');
 
+cwd = process.cwd();
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 //needdd these two lines of code for anything with a post request
