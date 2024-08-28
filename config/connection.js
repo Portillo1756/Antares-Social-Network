@@ -1,7 +1,13 @@
-const { connect, connection } = require('mongoose');
+// const { connect, connection } = require('mongoose');
 
-const connectionString = 'mongodb://127.0.0.1:27017/socialNetworkDB';
+// const connectionString = 'mongodb://127.0.0.1:27017/socialNetworkDB';
 
-connect(connectionString);
+// connect(connectionString);
 
-moodule.exports = connection;
+// moodule.exports = connection;
+
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://127.0.0.1:27017/socialNetworkDB');
+
+module.exports = mongoose.connection;
