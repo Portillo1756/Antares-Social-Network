@@ -7,12 +7,7 @@ module.exports = {
         try { 
             const user = await User.find();
 
-            const userObj = {
-                user,
-                userCount: await userCount(),
-            };
-
-            res.json(userObj);
+            res.json(user);
         } catch (err) {
             console.log(err);
             return res.status(500).json(err);
@@ -24,7 +19,7 @@ module.exports = {
         try {
             const user = await User.findOne({ _id: req.params.userId })
             .populate("thought")
-            .populate("user")
+            .populate("friends")
             .select('-__v');
 
             if (!user) {
@@ -92,7 +87,7 @@ module.exports = {
         }
     },
 
-    // A fiend to user
+    // Add friend to user
     async addFriend (req, res) {
         try {
             const user = await User.findOneAndUpdate(
